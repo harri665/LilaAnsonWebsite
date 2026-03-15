@@ -1,24 +1,13 @@
-import { Link, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
+import Portfolio from './pages/Portfolio.jsx'
+import TEDxCU from './pages/TEDxCU.jsx'
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <nav>
-        <ul style={{ display: 'flex', gap: '1rem' }}>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-        </ul>
-      </nav>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Portfolio />} />
+      <Route path="/work/tedxcu" element={<TEDxCU />} />
+    </Routes>
   )
 }
-
-export default App
