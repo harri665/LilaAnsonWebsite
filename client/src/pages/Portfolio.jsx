@@ -1,13 +1,28 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BookDisplay } from './WorkBook'
 
 const base = import.meta.env.BASE_URL
+const BOOK_SPREADS = 4  // pages 1–4 (matches LEAVES length - 1 end-paper)
 
 export default function Portfolio() {
+  const bookRef = useRef(null)
+  const [bookPage, setBookPage] = useState(1)
+
   useEffect(() => {
     const nav = document.getElementById('nav')
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60)
+
+      // Drive book page from scroll position
+      if (bookRef.current) {
+        const top = bookRef.current.getBoundingClientRect().top
+        const scrolled = Math.max(0, -top)
+        const page = Math.min(BOOK_SPREADS, Math.floor(scrolled / window.innerHeight) + 1)
+        setBookPage(Math.max(1, page))
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     const reveals = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver((entries) => {
@@ -106,7 +121,7 @@ export default function Portfolio() {
 
           {/* TEDxCU (04) — top right */}
           <div className="wi-item wi-tedxcu reveal">
-            <Link to="/work/tedxcu">
+            <Link to="/work">
               <img src={`${base}03/portfolios-03_0005_Layer-7.png`} alt="TEDxCU Experiential Design" />
             </Link>
             <div className="wi-meta">
@@ -118,7 +133,7 @@ export default function Portfolio() {
           {/* Colorado Symphony (08) — middle left */}
           <div className="wi-item wi-colorado reveal">
             <span className="wi-hand wi-hand--above">(Colorado Symphony<br />Poster Mailer)</span>
-            <Link to="/work/colorado-symphony">
+            <Link to="/work">
               <img src={`${base}05/portfolios-05_0001_Layer-3.png`} alt="Colorado Symphony Poster Mailer" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(08)</span>
@@ -127,7 +142,7 @@ export default function Portfolio() {
           {/* Zine Covers (10) — lower right */}
           <div className="wi-item wi-zine reveal">
             <span className="wi-pgnum wi-pgnum--above">(10)</span>
-            <Link to="/work/zine">
+            <Link to="/work">
               <img src={`${base}06/portfolios-06_0000_Layer-2.png`} alt="Experimental Typography Zine Covers" />
             </Link>
             <span className="wi-hand wi-hand--below">Zine<br />Covers...</span>
@@ -136,12 +151,35 @@ export default function Portfolio() {
           {/* Bluebird (11) — lower left */}
           <div className="wi-item wi-bluebird reveal">
             <span className="wi-hand wi-hand--above">BLUEBIRD<br />Sparkling Water :)</span>
-            <Link to="/work/bluebird">
+            <Link to="/work">
               <img src={`${base}06/portfolios-06_0003_Layer-5.png`} alt="Bluebird Sparkling Water Branding" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(11)</span>
           </div>
 
+        </div>
+      </section>
+
+      {/* WORK BOOK — scroll-driven */}
+      <section className="wb-scroll-section" ref={bookRef}>
+        <div className="wb-scroll-sticky">
+          <button
+            className="wb-flip-btn wb-flip-btn--prev"
+            disabled={bookPage === 1}
+            onClick={() => {
+              const target = bookRef.current.offsetTop + (bookPage - 2) * window.innerHeight
+              window.scrollTo({ top: target, behavior: 'smooth' })
+            }}
+          >‹</button>
+          <BookDisplay current={bookPage} />
+          <button
+            className="wb-flip-btn wb-flip-btn--next"
+            disabled={bookPage === BOOK_SPREADS}
+            onClick={() => {
+              const target = bookRef.current.offsetTop + bookPage * window.innerHeight
+              window.scrollTo({ top: target, behavior: 'smooth' })
+            }}
+          >›</button>
         </div>
       </section>
 
