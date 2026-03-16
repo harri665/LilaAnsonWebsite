@@ -1,49 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const projects = [
-  {
-    num: '04 — Experiential Design',
-    title: <>TEDxCU<br />2025</>,
-    subtitle: 'Audience Experience Lead',
-    desc: 'As Audience Experience Lead for TEDxCU — an independently organized TED event drawing 1,000+ people annually — I designed and built a series of interactive installations for the 2025 theme "Anomaly." Each piece was tailored to a specific speaker\'s story, built in the wood shop, and deployed across a historic venue where nothing could touch the walls.',
-    tags: ['Installation', 'Experience Design', 'Adobe Illustrator', 'SketchUp', 'Fabrication'],
-    img: '/03/portfolios-03_0008_Layer-1.png',
-    alt: 'TEDxCU Experiential Design',
-    href: '/work/tedxcu',
-  },
-  {
-    num: '08 — Graphic Design',
-    title: <>Colorado<br />Symphony</>,
-    subtitle: 'Poster Mailer — 2022/2023 Season',
-    desc: 'Given scrambled, unformatted event data, I designed a foldable poster mailer for the Colorado Symphony Classics season. Inspired by the abstracted black and white keys of a piano, I developed a bold typographic system in Adobe Illustrator — balancing visual impact with informational hierarchy.',
-    tags: ['Print Design', 'Typography', 'Adobe Illustrator', 'Information Design'],
-    img: '/05/portfolios-05_0000_Layer-2.png',
-    alt: 'Colorado Symphony Poster Mailer',
-    href: null,
-  },
-  {
-    num: '10 — Graphic Design',
-    title: <>Atlas Zine<br />Covers</>,
-    subtitle: 'Experimental Typography — 2024',
-    desc: 'Designed covers for the 2024 Experimental Typography Zine produced at the University of Colorado Boulder. Using variable pixel fonts ranging in fidelity, I applied Extrude & Bevel features and lighting/shading effects in Adobe Illustrator to produce layered, dimensional type compositions.',
-    tags: ['Experimental Typography', 'Variable Fonts', 'Adobe Illustrator', 'Editorial'],
-    img: '/06/portfolios-06_0000_Layer-2.png',
-    alt: 'Experimental Typography Zine Covers',
-    href: null,
-  },
-  {
-    num: '11 — Graphic Design',
-    title: <>Bluebird<br />Sparkling Water</>,
-    subtitle: 'Product Branding',
-    desc: 'End-to-end product branding for Bluebird Sparkling Water — originally designed in Adobe Illustrator and rendered in Adobe Dimension. The project required studying current sparkling water branding trends to produce something genuinely marketable, while developing skills in typographic layout and 3D rendering.',
-    tags: ['Brand Identity', 'Packaging', 'Adobe Illustrator', 'Adobe Dimension', '3D Render'],
-    img: '/02/portfolios-02_0000_Layer-2.png',
-    alt: 'Bluebird Sparkling Water Branding',
-    href: null,
-  },
-]
-
 export default function Portfolio() {
   useEffect(() => {
     const nav = document.getElementById('nav')
@@ -111,40 +68,78 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* INTRODUCTION */}
+      <section id="intro">
+        <div className="work-rh reveal">
+          <span>02</span>
+          <span className="work-rh-title">Introduction</span>
+          <span />
+        </div>
+        <div className="intro-body reveal">
+          <div className="intro-images">
+            <img src="/02/portfolios-02_0000_Layer-2.png" alt="Lila Anson — portrait" />
+          </div>
+          <p className="intro-text">
+            As a designer, I align my<br />
+            work with one goal: to<br />
+            encourage radical collaboration<br />
+            and discovery. This &lsquo;North<br />
+            Star&rsquo; guides me through the<br />
+            fields of experimental and<br />
+            experiential design, typography,<br />
+            and installation.
+          </p>
+        </div>
+      </section>
+
       {/* WORK */}
       <section id="work">
-        <div className="section-header reveal">
-          <span className="label">Selected Work</span>
-          <div className="rule"></div>
+        <div className="work-rh reveal">
+          <span>00</span>
+          <span className="work-rh-title">Index</span>
+          <span />
         </div>
-        <div className="projects">
-          {projects.map((p, i) => (
-            <div className="project reveal" key={i}>
-              <div className="project-image">
-                <img src={p.img} alt={p.alt} />
-              </div>
-              <div className="project-info">
-                <div className="project-top">
-                  <span className="proj-num">{p.num}</span>
-                  <h2 className="proj-title">{p.title}</h2>
-                  <p className="proj-subtitle">{p.subtitle}</p>
-                  <p className="proj-desc">{p.desc}</p>
-                </div>
-                <div className="proj-bottom">
-                  <div className="proj-tags">
-                    {p.tags.map((tag) => (
-                      <span className="proj-tag" key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  {p.href && (
-                    <Link className="proj-cta" to={p.href}>
-                      View Case Study <span className="proj-cta-arrow">→</span>
-                    </Link>
-                  )}
-                </div>
-              </div>
+
+        <div className="work-index">
+
+          {/* TEDxCU (04) — top right */}
+          <div className="wi-item wi-tedxcu reveal">
+            <Link to="/work/tedxcu">
+              <img src="/03/portfolios-03_0005_Layer-7.png" alt="TEDxCU Experiential Design" />
+            </Link>
+            <div className="wi-meta">
+              <span className="wi-pgnum">(04)</span>
+              <span className="wi-hand">TEDxCU!</span>
             </div>
-          ))}
+          </div>
+
+          {/* Colorado Symphony (08) — middle left */}
+          <div className="wi-item wi-colorado reveal">
+            <span className="wi-hand wi-hand--above">(Colorado Symphony<br />Poster Mailer)</span>
+            <Link to="/work/colorado-symphony">
+              <img src="/05/portfolios-05_0001_Layer-3.png" alt="Colorado Symphony Poster Mailer" />
+            </Link>
+            <span className="wi-pgnum wi-pgnum--below">(08)</span>
+          </div>
+
+          {/* Zine Covers (10) — lower right */}
+          <div className="wi-item wi-zine reveal">
+            <span className="wi-pgnum wi-pgnum--above">(10)</span>
+            <Link to="/work/zine">
+              <img src="/06/portfolios-06_0000_Layer-2.png" alt="Experimental Typography Zine Covers" />
+            </Link>
+            <span className="wi-hand wi-hand--below">Zine<br />Covers...</span>
+          </div>
+
+          {/* Bluebird (11) — lower left */}
+          <div className="wi-item wi-bluebird reveal">
+            <span className="wi-hand wi-hand--above">BLUEBIRD<br />Sparkling Water :)</span>
+            <Link to="/work/bluebird">
+              <img src="/06/portfolios-06_0003_Layer-5.png" alt="Bluebird Sparkling Water Branding" />
+            </Link>
+            <span className="wi-pgnum wi-pgnum--below">(11)</span>
+          </div>
+
         </div>
       </section>
 
@@ -157,7 +152,7 @@ export default function Portfolio() {
             &amp; the<br />
             <em>Eye</em>
           </h2>
-          <div className="about-star">✦</div>
+          <img src="/global/star.png" alt="" className="about-star" />
         </div>
         <div className="about-body">
           <p className="reveal">

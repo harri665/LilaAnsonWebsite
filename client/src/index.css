@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Big+Shoulders+Display:wght@900&display=swap');
 
 :root {
-  --bg: #EEEAF4;
-  --ink: #0D0D0D;
+  --bg: #fffafa;
+  --ink: #0d0d0d;
   --ink-mid: #555;
   --ink-light: #999;
   --accent: #E8325A;
@@ -42,15 +43,16 @@ body {
 .watermark-row {
   display: flex;
   white-space: nowrap;
-  font-family: var(--serif);
+  
+  font-family: 'Agency FB', 'Big Shoulders Display', sans-serif;
   font-weight: 900;
-  font-size: 5rem;
-  letter-spacing: -0.02em;
+  font-size: clamp(4rem, 12vw, 14rem);
+  letter-spacing: 0.04em;
   line-height: 1;
-  color: var(--ink);
+  color: #0000ff;
   padding: 4px 0;
 }
-.watermark-row:nth-child(even) { transform: translateX(-80px); }
+.watermark-row:nth-child(even) { transform: translateX(-10%); }
 .watermark-row span { padding: 0 24px; }
 
 /* ─── NAV ────────────────────────────────────── */
@@ -209,102 +211,128 @@ section {
   background: rgba(13,13,13,0.12);
 }
 
-/* ─── WORK ───────────────────────────────────── */
-#work {
-  padding: 100px 0 120px;
+/* ─── INTRODUCTION ───────────────────────────── */
+#intro {
+  padding: 60px 0;
 }
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.project {
+.intro-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 520px;
-  overflow: hidden;
-  cursor: pointer;
+  gap: 4rem;
+  align-items: center;
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 48px;
 }
-.project:nth-child(even) .project-image { order: 2; }
-.project:nth-child(even) .project-info  { order: 1; }
-
-.project-image {
-  overflow: hidden;
-  background: #d8d4e2;
-  position: relative;
-}
-.project-image img {
+.intro-images img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
-  transform: scale(1.06);
-  transition: transform 1.4s var(--ease);
-  filter: grayscale(15%);
 }
-.project:hover .project-image img {
-  transform: scale(1);
-  filter: grayscale(0%);
+.intro-text {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.75;
+  color: var(--ink);
 }
 
-.project-info {
-  padding: 56px 64px;
+/* ─── WORK / INDEX ───────────────────────────── */
+#work {
+  padding: 60px 0 0;
+}
+
+/* Running head */
+.work-rh {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(13,13,13,0.3);
+  padding: 0 48px .4rem;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.work-rh-title { flex: 1; text-align: center; }
+
+/* Scattered index layout — page-like container */
+.work-index {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  /* height scales with container width to keep proportions */
+  aspect-ratio: 1 / 1.5;
+  min-height: 900px;
+}
+
+.wi-item {
+  position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background: var(--bg);
-  border: 1px solid rgba(13,13,13,0.06);
 }
-.project-top {}
-.proj-num {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  margin-bottom: 20px;
+.wi-item img {
   display: block;
+  width: 100%;
 }
-.proj-title {
-  font-family: var(--serif);
-  font-weight: 700;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
+.wi-item a { display: block; }
+.wi-item a img { transition: opacity .25s; }
+.wi-item a:hover img { opacity: .85; }
+
+/* All top/left/right as % of the container so they scale together */
+
+/* TEDxCU (04): top right */
+.wi-tedxcu {
+  top: 2%;
+  right: 6%;
+  width: 34%;
 }
-.proj-subtitle {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1rem;
-  color: var(--ink-mid);
-  margin-bottom: 28px;
-}
-.proj-desc {
-  font-family: var(--sans);
-  font-weight: 300;
-  font-size: 0.9rem;
-  line-height: 1.75;
-  color: var(--ink-mid);
-  max-width: 400px;
-}
-.proj-bottom {}
-.proj-tags {
+.wi-tedxcu .wi-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 40px;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: .3rem;
 }
-.proj-tag {
+
+/* Colorado Symphony (08): middle left */
+.wi-colorado {
+  top: 28%;
+  left: 10%;
+  width: 25%;
+}
+
+/* Zine Covers (10): lower right */
+.wi-zine {
+  top: 58%;
+  right: 6%;
+  width: 28%;
+}
+
+/* Bluebird (11): lower left */
+.wi-bluebird {
+  top: 66%;
+  left: 6%;
+  width: 19%;
+}
+
+/* Handwritten Caveat annotations */
+.wi-hand {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: #3355cc;
+  line-height: 1.3;
+}
+.wi-hand--above { margin-bottom: .4rem; }
+.wi-hand--below { margin-top: .4rem; }
+
+/* Page numbers */
+.wi-pgnum {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  border: 1px solid rgba(13,13,13,0.15);
-  padding: 5px 12px;
-  border-radius: 2px;
+  font-size: .7rem;
+  letter-spacing: .05em;
+  color: var(--ink);
 }
+.wi-pgnum--above { margin-bottom: .3rem; }
+.wi-pgnum--below { margin-top: .3rem; }
 
 /* ─── ABOUT ──────────────────────────────────── */
 #about {
@@ -331,25 +359,23 @@ section {
   font-weight: 700;
 }
 .about-star {
-  display: inline-block;
-  font-size: 2rem;
-  color: var(--accent);
+  display: block;
+  width: 52px;
+  height: auto;
   margin-top: 8px;
-  animation: spin 8s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
 
 .about-body p {
   font-family: var(--sans);
   font-weight: 300;
   font-size: 1rem;
   line-height: 1.85;
-  color: var(--ink-mid);
+  color: var(--ink);
   margin-bottom: 24px;
 }
 .about-body p strong {
   color: var(--ink);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .about-disciplines {
@@ -368,13 +394,13 @@ section {
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-mid);
+  color: var(--ink);
 }
 .disc-tools {
   font-family: var(--serif);
   font-style: italic;
   font-size: 0.95rem;
-  color: var(--ink-light);
+  color: var(--ink-mid);
 }
 
 /* ─── CONTACT ────────────────────────────────── */
@@ -480,11 +506,26 @@ footer p {
   #hero { padding: 64px 24px 40px; }
   .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
   .section-header { padding: 0 24px; }
-  .project { grid-template-columns: 1fr; min-height: auto; }
-  .project:nth-child(even) .project-image { order: 1; }
-  .project:nth-child(even) .project-info  { order: 2; }
-  .project-image { min-height: 280px; }
-  .project-info { padding: 36px 24px; }
+  .work-rh { padding: 0 24px .4rem; }
+  /* Stack items vertically on mobile */
+  .work-index {
+    aspect-ratio: unset;
+    min-height: unset;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 40px 24px;
+  }
+  .wi-item {
+    position: static;
+    width: 70% !important;
+  }
+  .wi-tedxcu, .wi-zine { align-self: flex-end; }
+  .wi-colorado, .wi-bluebird { align-self: flex-start; }
+  .intro-body { grid-template-columns: 1fr; gap: 2rem; padding: 0 24px; justify-items: center; text-align: center; }
+  .intro-images { max-width: 60%; }
+  .intro-text { font-size: 1.1rem; text-align: center; }
   #about { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
   .about-sticky { position: static; }
   #contact { padding: 80px 24px; }
