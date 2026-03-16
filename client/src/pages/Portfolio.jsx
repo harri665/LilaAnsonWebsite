@@ -1,16 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BookDisplay } from './WorkBook'
+import { BookDisplay, BOOK_DESKTOP_STEPS, BOOK_MOBILE_STEPS } from './WorkBook'
 
 const base = import.meta.env.BASE_URL
-const BOOK_SPREADS = 4  // pages 1–4 (matches LEAVES length - 1 end-paper)
 
 export default function Portfolio() {
   const bookRef = useRef(null)
+  const mobileAnimRef = useRef({ targetStep: 0, currentStep: 0, rafId: 0 })
   const [bookPage, setBookPage] = useState(1)
+  const [mobileTurnIndex, setMobileTurnIndex] = useState(0)
+  const [mobileTurnProgress, setMobileTurnProgress] = useState(0)
+  const [isMobileBook, setIsMobileBook] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches
+  )
+  const totalBookSteps = isMobileBook ? BOOK_MOBILE_STEPS : BOOK_DESKTOP_STEPS
 
   useEffect(() => {
     const nav = document.getElementById('nav')
+    const mobileQuery = window.matchMedia('(max-width: 900px)')
+
+    const getBookSteps = () => (mobileQuery.matches ? BOOK_MOBILE_STEPS : BOOK_DESKTOP_STEPS)
+
     const onScroll = () => {
       nav.classList.toggle('scrolled', window.scrollY > 60)
 
@@ -18,11 +28,62 @@ export default function Portfolio() {
       if (bookRef.current) {
         const top = bookRef.current.getBoundingClientRect().top
         const scrolled = Math.max(0, -top)
-        const page = Math.min(BOOK_SPREADS, Math.floor(scrolled / window.innerHeight) + 1)
-        setBookPage(Math.max(1, page))
+        const rawStep = scrolled / window.innerHeight
+        const totalSteps = getBookSteps()
+        const clampedStep = Math.min(totalSteps - 1, Math.max(0, rawStep))
+
+        if (mobileQuery.matches) {
+          const anim = mobileAnimRef.current
+          anim.targetStep = clampedStep
+
+          if (!anim.rafId) {
+            const tick = () => {
+              const delta = anim.targetStep - anim.currentStep
+              anim.currentStep += delta * 0.2
+
+              if (Math.abs(delta) < 0.0005) {
+                anim.currentStep = anim.targetStep
+              }
+
+              const turnBase = Math.floor(anim.currentStep)
+              setMobileTurnIndex(turnBase)
+              setMobileTurnProgress(anim.currentStep - turnBase)
+              setBookPage(Math.max(1, Math.min(totalSteps, Math.floor(anim.currentStep) + 1)))
+
+              if (anim.currentStep !== anim.targetStep) {
+                anim.rafId = requestAnimationFrame(tick)
+              } else {
+                anim.rafId = 0
+              }
+            }
+
+            anim.rafId = requestAnimationFrame(tick)
+          }
+        } else {
+          const page = Math.min(totalSteps, Math.floor(clampedStep) + 1)
+          setMobileTurnIndex(0)
+          setMobileTurnProgress(0)
+          mobileAnimRef.current.currentStep = 0
+          mobileAnimRef.current.targetStep = 0
+          if (mobileAnimRef.current.rafId) {
+            cancelAnimationFrame(mobileAnimRef.current.rafId)
+            mobileAnimRef.current.rafId = 0
+          }
+          setBookPage(Math.max(1, page))
+        }
       }
     }
+
+    const onBreakpointChange = () => {
+      setIsMobileBook(mobileQuery.matches)
+      onScroll()
+    }
+
+    setIsMobileBook(mobileQuery.matches)
+    onScroll()
+
     window.addEventListener('scroll', onScroll, { passive: true })
+    mobileQuery.addEventListener('change', onBreakpointChange)
 
     const reveals = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver((entries) => {
@@ -37,6 +98,11 @@ export default function Portfolio() {
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      mobileQuery.removeEventListener('change', onBreakpointChange)
+      if (mobileAnimRef.current.rafId) {
+        cancelAnimationFrame(mobileAnimRef.current.rafId)
+        mobileAnimRef.current.rafId = 0
+      }
       observer.disconnect()
     }
   }, [])
@@ -121,7 +187,7 @@ export default function Portfolio() {
 
           {/* TEDxCU (04) — top right */}
           <div className="wi-item wi-tedxcu reveal">
-            <Link to="/work">
+            <Link to="/work/tedxcu">
               <img src={`${base}03/portfolios-03_0005_Layer-7.png`} alt="TEDxCU Experiential Design" />
             </Link>
             <div className="wi-meta">
@@ -133,7 +199,7 @@ export default function Portfolio() {
           {/* Colorado Symphony (08) — middle left */}
           <div className="wi-item wi-colorado reveal">
             <span className="wi-hand wi-hand--above">(Colorado Symphony<br />Poster Mailer)</span>
-            <Link to="/work">
+            <Link to="/work/colorado-symphony">
               <img src={`${base}05/portfolios-05_0001_Layer-3.png`} alt="Colorado Symphony Poster Mailer" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(08)</span>
@@ -142,7 +208,7 @@ export default function Portfolio() {
           {/* Zine Covers (10) — lower right */}
           <div className="wi-item wi-zine reveal">
             <span className="wi-pgnum wi-pgnum--above">(10)</span>
-            <Link to="/work">
+            <Link to="/work/zine">
               <img src={`${base}06/portfolios-06_0000_Layer-2.png`} alt="Experimental Typography Zine Covers" />
             </Link>
             <span className="wi-hand wi-hand--below">Zine<br />Covers...</span>
@@ -151,7 +217,7 @@ export default function Portfolio() {
           {/* Bluebird (11) — lower left */}
           <div className="wi-item wi-bluebird reveal">
             <span className="wi-hand wi-hand--above">BLUEBIRD<br />Sparkling Water :)</span>
-            <Link to="/work">
+            <Link to="/work/bluebird">
               <img src={`${base}06/portfolios-06_0003_Layer-5.png`} alt="Bluebird Sparkling Water Branding" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(11)</span>
@@ -161,7 +227,7 @@ export default function Portfolio() {
       </section>
 
       {/* WORK BOOK — scroll-driven */}
-      <section className="wb-scroll-section" ref={bookRef}>
+      <section className="wb-scroll-section" style={{ '--wb-scroll-steps': totalBookSteps }} ref={bookRef}>
         <div className="wb-scroll-sticky">
           <button
             className="wb-flip-btn wb-flip-btn--prev"
@@ -171,10 +237,15 @@ export default function Portfolio() {
               window.scrollTo({ top: target, behavior: 'smooth' })
             }}
           >‹</button>
-          <BookDisplay current={bookPage} />
+          <BookDisplay
+            current={bookPage}
+            mobile={isMobileBook}
+            mobileTurnIndex={mobileTurnIndex}
+            mobileTurnProgress={mobileTurnProgress}
+          />
           <button
             className="wb-flip-btn wb-flip-btn--next"
-            disabled={bookPage === BOOK_SPREADS}
+            disabled={bookPage === totalBookSteps}
             onClick={() => {
               const target = bookRef.current.offsetTop + bookPage * window.innerHeight
               window.scrollTo({ top: target, behavior: 'smooth' })

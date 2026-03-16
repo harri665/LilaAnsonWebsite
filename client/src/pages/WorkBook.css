@@ -91,6 +91,11 @@
   overflow: hidden;
 }
 
+.wb-p06-intro-copy {
+  font-size: 1.16rem;
+  line-height: 1.4;
+}
+
 /* ── NAV EXTRAS ── */
 .wb-counter {
   font-family: 'Times New Roman', Times, serif;
@@ -116,8 +121,8 @@
 
 /* ── SCROLL-EMBEDDED VARIANT (Portfolio home page) ── */
 .wb-scroll-section {
-  /* Tall enough to give 1 viewport of scroll per page flip (4 flips + buffer) */
-  height: 500vh;
+  /* 1 viewport of scroll per step + one buffer viewport */
+  height: calc((var(--wb-scroll-steps, 4) + 1) * 100dvh);
 }
 
 .wb-scroll-sticky {
@@ -177,6 +182,68 @@
     gap: 14px;
   }
 
+  .wb-book--mobile {
+    position: relative;
+    margin: 8px auto;
+    width: calc(100% - 24px);
+    max-width: 740px;
+    height: calc(100dvh - 48px);
+    perspective: 1800px;
+    box-shadow: 0 28px 40px -20px rgba(0,0,0,0.55);
+    background: #f5f0e8;
+    display: block;
+    overflow: hidden;
+  }
+
+  .wb-mobile-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wb-mobile-leaf {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 0.14s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform;
+    filter: drop-shadow(0 12px 16px rgba(0,0,0,0.18));
+  }
+
+  .wb-mobile-leaf.flipped {
+    transform: rotateY(-180deg);
+  }
+
+  .wb-mobile-leaf.turning {
+    filter: drop-shadow(0 22px 28px rgba(0,0,0,0.28));
+  }
+
+  .wb-mobile-page {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: #faf8f4;
+    box-shadow: inset -26px 0 36px -30px rgba(0,0,0,0.22);
+    overflow: hidden;
+  }
+
+  .wb-mobile-page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 34%, transparent 62%);
+    opacity: 0.35;
+  }
+
+  .wb-mobile-page > .tedx-pg,
+  .wb-mobile-page > .wb-pg-blank {
+    position: absolute;
+    inset: 0;
+  }
+
   /* Flatten the 3D book into individual sequential pages */
   .wb-leaf {
     position: relative;
@@ -210,7 +277,85 @@
   .wb-leaf-back > .wb-pg-blank {
     position: relative;
     inset: auto;
-    min-height: min(100dvh - 110px, 980px);
+    height: calc(100dvh - 48px);
+    min-height: calc(100dvh - 48px);
+    max-height: calc(100dvh - 48px);
+  }
+
+  .tedx-pg:not(.wb-page-06):not(.wb-page-07) .tedx-body {
+    font-size: calc(0.26rem + (0.98rem / var(--wb-page-zoom, 1))) !important;
+    line-height: calc(0.36rem + (1.38rem / var(--wb-page-zoom, 1))) !important;
+  }
+
+  .tedx-pg:not(.wb-page-06):not(.wb-page-07) .tedx-body.lg {
+    font-size: calc(0.3rem + (1.08rem / var(--wb-page-zoom, 1))) !important;
+    line-height: calc(0.42rem + (1.5rem / var(--wb-page-zoom, 1))) !important;
+  }
+
+  .tedx-pg .tedx-rh {
+    font-size: calc(0.64rem / var(--wb-page-zoom, 1)) !important;
+    letter-spacing: calc(0.14em / var(--wb-page-zoom, 1));
+    padding-bottom: calc(0.28rem / var(--wb-page-zoom, 1));
+    margin-bottom: calc(0.8rem / var(--wb-page-zoom, 1));
+  }
+
+  .tedx-pg .tedx-title {
+    font-size: calc(1.55rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.66rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .tedx-pg .tedx-title-l2 {
+    padding-left: calc(1.15rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .tedx-pg .cs-section-title,
+  .tedx-pg .zine-title,
+  .tedx-pg .bb-title {
+    font-size: calc(1.02rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.3rem / var(--wb-page-zoom, 1)) !important;
+    margin-bottom: calc(1rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-p06-intro-copy {
+    font-size: calc(0.82rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.17rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-page-06 .tedx-pg-inner {
+    padding: calc(1.1rem / var(--wb-page-zoom, 1)) calc(1.5rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-p06-outro-copy {
+    font-size: calc(1rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.44rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-p06-woodshop-copy {
+    font-size: calc(0.95rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.36rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-p07-event-copy {
+    font-size: calc(1.06rem / var(--wb-page-zoom, 1)) !important;
+    line-height: calc(1.52rem / var(--wb-page-zoom, 1)) !important;
+  }
+
+  .wb-page-07 .tedx-bubble-wrap {
+    margin-top: calc(1rem / var(--wb-page-zoom, 1));
+    padding-top: calc(1.45rem / var(--wb-page-zoom, 1));
+  }
+
+  .wb-page-07 .tedx-bubble-wrap::before {
+    font-size: calc(2.2rem / var(--wb-page-zoom, 1));
+    left: calc(0.9rem / var(--wb-page-zoom, 1));
+  }
+
+  .wb-page-07 .tedx-bubble {
+    width: calc(220px / var(--wb-page-zoom, 1));
+    height: calc(220px / var(--wb-page-zoom, 1));
+    padding: calc(0.85rem / var(--wb-page-zoom, 1));
+    font-size: calc(1.05rem / var(--wb-page-zoom, 1));
+    line-height: 1.32;
   }
 
   .wb-nav-controls,
@@ -219,12 +364,14 @@
   }
 
   .wb-scroll-section {
-    height: auto;
+    height: calc((var(--wb-scroll-steps, 8) + 1) * 100dvh);
   }
 
   .wb-scroll-sticky {
-    position: static;
-    height: auto;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    padding-top: 48px;
   }
 
   .wb-book::after {

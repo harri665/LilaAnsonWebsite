@@ -115,13 +115,13 @@ const Page05 = () => (
 )
 
 const Page06 = () => (
-  <div className="tedx-pg">
+  <div className="tedx-pg wb-page-06">
     <Wm />
     <div className="tedx-pg-inner">
       <div className="tedx-rh">
         <span>06</span><span className="rh-center">Experiential Design</span><span />
       </div>
-      <p className="tedx-body lg">
+      <p className="tedx-body lg wb-p06-intro-copy">
         I made mockups of each installation in Adobe Illustrator before moving on to
         anything physical. These mockups were imported into SketchUp and placed into
         a virtual copy of the lobby which I had made after visiting and taking
@@ -130,7 +130,7 @@ const Page06 = () => (
       </p>
       <div className="tedx-cols tedx-cols--4-6" style={{marginTop:'.75rem',alignItems:'stretch'}}>
         <div className="tedx-fill-col">
-          <p className="tedx-body tedx-fill-text">
+          <p className="tedx-body tedx-fill-text wb-p06-woodshop-copy">
             I then moved to the wood shop, where I built my installations to{' '}
             <span className="tedx-u">allow them to be deconstructed, transported in
             a car, and reconstructed.</span>{' '}
@@ -146,7 +146,7 @@ const Page06 = () => (
       </div>
       <div className="tedx-cols tedx-cols--45-55" style={{marginTop:'.75rem'}}>
         <img src={i4(2)} alt="Planning sketches — January 2025" style={{width:'100%',display:'block',border:'1px solid #ccc'}} />
-        <p className="tedx-body">
+        <p className="tedx-body wb-p06-outro-copy">
           Although I had prepared rough sketches of what I thought the best layout
           would be for the installations, rehearsal day was about arranging and rearranging.
         </p>
@@ -156,7 +156,7 @@ const Page06 = () => (
 )
 
 const Page07 = () => (
-  <div className="tedx-pg">
+  <div className="tedx-pg wb-page-07">
     <Wm />
     <div className="tedx-pg-inner">
       <div className="tedx-rh">
@@ -172,7 +172,7 @@ const Page07 = () => (
         <div>
           <img src={i4(4)} alt="Rethinking Roots installation" style={{width:'100%',display:'block',marginBottom:'1.2rem'}} />
           <img src={star} alt="" className="tedx-doodle" />
-          <p className="tedx-body lg">
+          <p className="tedx-body lg wb-p07-event-copy">
             The next day was the actual event. After delegating my team to occupy
             each installation and prompt guests to engage, I was able to observe
             how people moved through the space and interacted with my ideas.
@@ -328,14 +328,59 @@ const LEAVES = [
   { front: <Page11 />, back: <Blank />  },
 ]
 
+const MOBILE_PAGES = [
+  <Page04 key="p04" />,
+  <Page05 key="p05" />,
+  <Page06 key="p06" />,
+  <Page07 key="p07" />,
+  <Page08 key="p08" />,
+  <Page09 key="p09" />,
+  <Page10 key="p10" />,
+  <Page11 key="p11" />,
+]
+
 const TOTAL = LEAVES.length // 5
+export const BOOK_DESKTOP_STEPS = TOTAL - 1
+export const BOOK_MOBILE_STEPS = MOBILE_PAGES.length
 
 /* ── Embeddable book display (used in Portfolio scroll section) ── */
-export function BookDisplay({ current }) {
+export function BookDisplay({ current, mobile = false, mobileTurnIndex = 0, mobileTurnProgress = 0 }) {
   useEffect(() => {
     const cleanup = setupFitPages()
     return cleanup
   }, [])
+
+  if (mobile) {
+    return (
+      <div className="wb-book wb-book--mobile">
+        <div className="wb-mobile-stack">
+          {MOBILE_PAGES.map((page, i) => (
+            (() => {
+              const fullyFlipped = i < mobileTurnIndex
+              const isTurning = i === mobileTurnIndex && current < MOBILE_PAGES.length
+              const turn = fullyFlipped ? 1 : (isTurning ? mobileTurnProgress : 0)
+              const easedTurn = turn * turn * (3 - 2 * turn)
+              const rotate = -180 * easedTurn
+              const lift = isTurning ? (1 - Math.abs(0.5 - easedTurn) * 2) * 18 : 0
+
+              return (
+                <div
+                  key={i}
+                  className={`wb-mobile-leaf${fullyFlipped || (isTurning && easedTurn > 0.995) ? ' flipped' : ''}${isTurning ? ' turning' : ''}`}
+                  style={{
+                    zIndex: fullyFlipped ? 0 : MOBILE_PAGES.length - i,
+                    transform: `translateY(${-lift}px) rotateY(${rotate}deg)`,
+                  }}
+                >
+                  <div className="wb-mobile-page">{page}</div>
+                </div>
+              )
+            })()
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="wb-book">
