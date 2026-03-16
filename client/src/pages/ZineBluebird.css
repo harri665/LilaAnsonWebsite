@@ -10,7 +10,7 @@
 /* ── ZINE ── */
 
 .zine-title {
-  font-family: 'IM Fell English', Georgia, serif;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.6rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -42,13 +42,13 @@
   gap: .3rem;
 }
 .zb-caveat {
-  font-family: 'Caveat', cursive;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1rem;
   color: #3355cc;
   line-height: 1.35;
 }
 .zb-arrow {
-  font-family: 'Caveat', cursive;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.3rem;
   color: #3355cc;
   line-height: 1;
@@ -60,7 +60,7 @@
   margin-bottom: .3rem;
 }
 .zine-arrow-left {
-  font-family: 'Caveat', cursive;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.6rem;
   color: #3355cc;
   margin-bottom: .4rem;
@@ -75,7 +75,7 @@
   gap: .4rem;
 }
 .zine-arrow-right {
-  font-family: 'Caveat', cursive;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.6rem;
   color: #3355cc;
   line-height: 1;
@@ -97,7 +97,7 @@
 /* ── BLUEBIRD ── */
 
 .bb-title {
-  font-family: 'IM Fell English', Georgia, serif;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.6rem;
   font-weight: bold;
   text-transform: uppercase;
