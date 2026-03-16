@@ -1,13 +1,89 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BookDisplay, BOOK_DESKTOP_STEPS, BOOK_MOBILE_STEPS } from './WorkBook'
 
 const base = import.meta.env.BASE_URL
 
 export default function Portfolio() {
+  const bookRef = useRef(null)
+  const mobileAnimRef = useRef({ targetStep: 0, currentStep: 0, rafId: 0 })
+  const [bookPage, setBookPage] = useState(1)
+  const [mobileTurnIndex, setMobileTurnIndex] = useState(0)
+  const [mobileTurnProgress, setMobileTurnProgress] = useState(0)
+  const [isMobileBook, setIsMobileBook] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches
+  )
+  const totalBookSteps = isMobileBook ? BOOK_MOBILE_STEPS : BOOK_DESKTOP_STEPS
+
   useEffect(() => {
     const nav = document.getElementById('nav')
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
+    const mobileQuery = window.matchMedia('(max-width: 900px)')
+
+    const getBookSteps = () => (mobileQuery.matches ? BOOK_MOBILE_STEPS : BOOK_DESKTOP_STEPS)
+
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60)
+
+      // Drive book page from scroll position
+      if (bookRef.current) {
+        const top = bookRef.current.getBoundingClientRect().top
+        const scrolled = Math.max(0, -top)
+        const rawStep = scrolled / window.innerHeight
+        const totalSteps = getBookSteps()
+        const clampedStep = Math.min(totalSteps - 1, Math.max(0, rawStep))
+
+        if (mobileQuery.matches) {
+          const anim = mobileAnimRef.current
+          anim.targetStep = clampedStep
+
+          if (!anim.rafId) {
+            const tick = () => {
+              const delta = anim.targetStep - anim.currentStep
+              anim.currentStep += delta * 0.2
+
+              if (Math.abs(delta) < 0.0005) {
+                anim.currentStep = anim.targetStep
+              }
+
+              const turnBase = Math.floor(anim.currentStep)
+              setMobileTurnIndex(turnBase)
+              setMobileTurnProgress(anim.currentStep - turnBase)
+              setBookPage(Math.max(1, Math.min(totalSteps, Math.floor(anim.currentStep) + 1)))
+
+              if (anim.currentStep !== anim.targetStep) {
+                anim.rafId = requestAnimationFrame(tick)
+              } else {
+                anim.rafId = 0
+              }
+            }
+
+            anim.rafId = requestAnimationFrame(tick)
+          }
+        } else {
+          const page = Math.min(totalSteps, Math.floor(clampedStep) + 1)
+          setMobileTurnIndex(0)
+          setMobileTurnProgress(0)
+          mobileAnimRef.current.currentStep = 0
+          mobileAnimRef.current.targetStep = 0
+          if (mobileAnimRef.current.rafId) {
+            cancelAnimationFrame(mobileAnimRef.current.rafId)
+            mobileAnimRef.current.rafId = 0
+          }
+          setBookPage(Math.max(1, page))
+        }
+      }
+    }
+
+    const onBreakpointChange = () => {
+      setIsMobileBook(mobileQuery.matches)
+      onScroll()
+    }
+
+    setIsMobileBook(mobileQuery.matches)
+    onScroll()
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    mobileQuery.addEventListener('change', onBreakpointChange)
 
     const reveals = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver((entries) => {
@@ -22,6 +98,11 @@ export default function Portfolio() {
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      mobileQuery.removeEventListener('change', onBreakpointChange)
+      if (mobileAnimRef.current.rafId) {
+        cancelAnimationFrame(mobileAnimRef.current.rafId)
+        mobileAnimRef.current.rafId = 0
+      }
       observer.disconnect()
     }
   }, [])
@@ -142,6 +223,34 @@ export default function Portfolio() {
             <span className="wi-pgnum wi-pgnum--below">(11)</span>
           </div>
 
+        </div>
+      </section>
+
+      {/* WORK BOOK — scroll-driven */}
+      <section className="wb-scroll-section" style={{ '--wb-scroll-steps': totalBookSteps }} ref={bookRef}>
+        <div className="wb-scroll-sticky">
+          <button
+            className="wb-flip-btn wb-flip-btn--prev"
+            disabled={bookPage === 1}
+            onClick={() => {
+              const target = bookRef.current.offsetTop + (bookPage - 2) * window.innerHeight
+              window.scrollTo({ top: target, behavior: 'smooth' })
+            }}
+          >‹</button>
+          <BookDisplay
+            current={bookPage}
+            mobile={isMobileBook}
+            mobileTurnIndex={mobileTurnIndex}
+            mobileTurnProgress={mobileTurnProgress}
+          />
+          <button
+            className="wb-flip-btn wb-flip-btn--next"
+            disabled={bookPage === totalBookSteps}
+            onClick={() => {
+              const target = bookRef.current.offsetTop + bookPage * window.innerHeight
+              window.scrollTo({ top: target, behavior: 'smooth' })
+            }}
+          >›</button>
         </div>
       </section>
 

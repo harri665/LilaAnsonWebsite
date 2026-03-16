@@ -1,15 +1,43 @@
 const NAV_H = 48
 
 export function fitPages() {
-  const available = window.innerHeight - NAV_H
+  const isMobile = window.matchMedia('(max-width: 900px)').matches
+
   document.querySelectorAll('.tedx-pg').forEach(pg => {
     const inner = pg.querySelector('.tedx-pg-inner')
     if (!inner) return
-    inner.style.zoom = ''
-    const natural = inner.scrollHeight
-    if (natural > available) {
-      inner.style.zoom = Math.max(0.82, available / natural)
+
+    if (!isMobile) {
+      inner.style.zoom = '1'
+      pg.style.setProperty('--wb-page-zoom', '1')
+      return
     }
+
+    let availableH = pg.clientHeight
+    if (!availableH) availableH = window.innerHeight - NAV_H
+
+    let availableW = pg.clientWidth
+    if (!availableW) availableW = window.innerWidth
+
+    let lo = 0.2
+    let hi = 1
+    let best = lo
+
+    for (let i = 0; i < 20; i++) {
+      const mid = (lo + hi) / 2
+      inner.style.zoom = String(mid)
+      pg.style.setProperty('--wb-page-zoom', String(mid))
+
+      if (inner.scrollHeight <= availableH && inner.scrollWidth <= availableW) {
+        best = mid
+        lo = mid
+      } else {
+        hi = mid
+      }
+    }
+
+    inner.style.zoom = String(best)
+    pg.style.setProperty('--wb-page-zoom', String(best))
   })
 }
 

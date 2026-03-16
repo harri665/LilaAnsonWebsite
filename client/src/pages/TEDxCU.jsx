@@ -209,14 +209,14 @@ export default function TEDxCU() {
 
             <div className="tedx-cols tedx-cols--5-5 reveal">
               <div className="tedx-photo-stack">
-                <img src={i4(3)} alt="Visitors at speed climbing panel" />
+                <img src={i4(6)} alt="Visitors at speed climbing panel" />
                 <img src={i4(5)} alt="Matthew King: The Cost of Capitalism" />
-                <img src={i4(6)} alt="Life, Death, and AI installation" />
-                <img src={i4(7)} alt="Laureal Boston: Crafting Connection" />
+                <img src={i4(4)} alt="Life, Death, and AI installation" />
+                <img src={i4(3)} alt="Laureal Boston: Crafting Connection" />
               </div>
 
               <div>
-                <img src={i4(4)} alt="Rethinking Roots installation"
+                <img src={i4(7)} alt="Rethinking Roots installation"
                   style={{width:'100%',display:'block',marginBottom:'1.2rem'}} />
                 <img src="/global/star.png" alt="" className="tedx-doodle" />
                 <p className="tedx-body lg">
