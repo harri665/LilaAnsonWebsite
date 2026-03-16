@@ -1,17 +1,15 @@
 const NAV_H = 48
 
 export function fitPages() {
-  const isMobile = window.matchMedia('(max-width: 900px)').matches
+  const epsilon = 2
 
   document.querySelectorAll('.tedx-pg').forEach(pg => {
     const inner = pg.querySelector('.tedx-pg-inner')
     if (!inner) return
 
-    if (!isMobile) {
-      inner.style.zoom = '1'
-      pg.style.setProperty('--wb-page-zoom', '1')
-      return
-    }
+    // Reset before measuring so previous pass transforms do not skew available space.
+    inner.style.zoom = '1'
+    pg.style.setProperty('--wb-page-zoom', '1')
 
     let availableH = pg.clientHeight
     if (!availableH) availableH = window.innerHeight - NAV_H
@@ -19,29 +17,60 @@ export function fitPages() {
     let availableW = pg.clientWidth
     if (!availableW) availableW = window.innerWidth
 
-    let lo = 0.2
-    let hi = 1
-    let best = lo
+    availableH = Math.max(0, availableH - epsilon)
+    availableW = Math.max(0, availableW - epsilon)
 
-    for (let i = 0; i < 20; i++) {
+    if (!availableH || !availableW) return
+
+    let lo = 0.1
+    let hi = 1
+
+    for (let i = 0; i < 24; i++) {
       const mid = (lo + hi) / 2
       inner.style.zoom = String(mid)
-      pg.style.setProperty('--wb-page-zoom', String(mid))
-
-      if (inner.scrollHeight <= availableH && inner.scrollWidth <= availableW) {
-        best = mid
-        lo = mid
-      } else {
-        hi = mid
-      }
+      const rect = inner.getBoundingClientRect()
+      const fitsH = rect.height <= availableH
+      const fitsW = rect.width <= availableW + 12
+      const fits = fitsH && fitsW
+      if (fits) lo = mid
+      else hi = mid
     }
 
-    inner.style.zoom = String(best)
-    pg.style.setProperty('--wb-page-zoom', String(best))
+    let finalScale = Math.max(0.1, lo)
+    inner.style.zoom = String(finalScale)
+    pg.style.setProperty('--wb-page-zoom', String(finalScale))
+
+    // Final clamp for rounding differences under browser/page zoom.
+    let guard = 0
+    while (guard < 8) {
+      const rect = inner.getBoundingClientRect()
+      if (rect.height <= availableH && rect.width <= availableW + 8) break
+      const byH = availableH / rect.height
+      const byW = availableW / rect.width
+
+      // Height is the dominant constraint; width gets a small tolerance to avoid over-shrinking.
+      const factor = rect.height > availableH
+        ? Math.min(byH, Math.min(1, byW + 0.02))
+        : Math.min(1, byW)
+
+      finalScale = Math.max(0.1, finalScale * Math.min(0.999, factor))
+      inner.style.zoom = String(finalScale)
+      pg.style.setProperty('--wb-page-zoom', String(finalScale))
+      guard += 1
+    }
+
   })
 }
 
 export function fitFillText() {
+  const isMobile = window.matchMedia('(max-width: 900px)').matches
+  if (isMobile) {
+    document.querySelectorAll('.tedx-fill-text').forEach(el => {
+      el.style.fontSize = ''
+    })
+    return
+  }
+
   document.querySelectorAll('.tedx-fill-text').forEach(el => {
     const col = el.closest('.tedx-fill-col')
     if (!col) return
@@ -67,6 +96,7 @@ const fitAll = () => { fitPages(); fitFillText() }
 export function setupFitPages() {
   let frame
   let count = 0
+  const vv = window.visualViewport
   const loop = () => {
     fitAll()
     if (count++ < 10) frame = requestAnimationFrame(loop)
@@ -74,6 +104,8 @@ export function setupFitPages() {
   frame = requestAnimationFrame(loop)
 
   window.addEventListener('resize', fitAll)
+  vv?.addEventListener('resize', fitAll)
+  vv?.addEventListener('scroll', fitAll)
   const imgs = document.querySelectorAll('.tedx-pg img')
   imgs.forEach(img => {
     if (!img.complete) img.addEventListener('load', fitAll)
@@ -82,6 +114,8 @@ export function setupFitPages() {
   return () => {
     cancelAnimationFrame(frame)
     window.removeEventListener('resize', fitAll)
+    vv?.removeEventListener('resize', fitAll)
+    vv?.removeEventListener('scroll', fitAll)
     imgs.forEach(img => img.removeEventListener('load', fitAll))
   }
 }

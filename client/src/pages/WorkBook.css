@@ -282,79 +282,83 @@
     max-height: calc(100dvh - 48px);
   }
 
+  .wb-mobile-page > .tedx-pg {
+    transform: none;
+  }
+
   .tedx-pg:not(.wb-page-06):not(.wb-page-07) .tedx-body {
-    font-size: calc(0.26rem + (0.98rem / var(--wb-page-zoom, 1))) !important;
-    line-height: calc(0.36rem + (1.38rem / var(--wb-page-zoom, 1))) !important;
+    font-size: 1rem !important;
+    line-height: 1.42 !important;
   }
 
   .tedx-pg:not(.wb-page-06):not(.wb-page-07) .tedx-body.lg {
-    font-size: calc(0.3rem + (1.08rem / var(--wb-page-zoom, 1))) !important;
-    line-height: calc(0.42rem + (1.5rem / var(--wb-page-zoom, 1))) !important;
+    font-size: 1.08rem !important;
+    line-height: 1.48 !important;
   }
 
   .tedx-pg .tedx-rh {
-    font-size: calc(0.64rem / var(--wb-page-zoom, 1)) !important;
-    letter-spacing: calc(0.14em / var(--wb-page-zoom, 1));
-    padding-bottom: calc(0.28rem / var(--wb-page-zoom, 1));
-    margin-bottom: calc(0.8rem / var(--wb-page-zoom, 1));
+    font-size: 0.66rem !important;
+    letter-spacing: 0.14em;
+    padding-bottom: 0.28rem;
+    margin-bottom: 0.8rem;
   }
 
   .tedx-pg .tedx-title {
-    font-size: calc(1.55rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.66rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 1.55rem !important;
+    line-height: 1.66rem !important;
   }
 
   .tedx-pg .tedx-title-l2 {
-    padding-left: calc(1.15rem / var(--wb-page-zoom, 1)) !important;
+    padding-left: 1.15rem !important;
   }
 
   .tedx-pg .cs-section-title,
   .tedx-pg .zine-title,
   .tedx-pg .bb-title {
-    font-size: calc(1.02rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.3rem / var(--wb-page-zoom, 1)) !important;
-    margin-bottom: calc(1rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 1.02rem !important;
+    line-height: 1.3rem !important;
+    margin-bottom: 1rem !important;
   }
 
   .wb-p06-intro-copy {
-    font-size: calc(0.82rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.17rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 0.68rem !important;
+    line-height: 0.98rem !important;
   }
 
   .wb-page-06 .tedx-pg-inner {
-    padding: calc(1.1rem / var(--wb-page-zoom, 1)) calc(1.5rem / var(--wb-page-zoom, 1)) !important;
+    padding: 1.1rem 1.5rem !important;
   }
 
   .wb-p06-outro-copy {
-    font-size: calc(1rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.44rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 1rem !important;
+    line-height: 1.44rem !important;
   }
 
   .wb-p06-woodshop-copy {
-    font-size: calc(0.95rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.36rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.36rem !important;
   }
 
   .wb-p07-event-copy {
-    font-size: calc(1.06rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.52rem / var(--wb-page-zoom, 1)) !important;
+    font-size: 1.06rem !important;
+    line-height: 1.52rem !important;
   }
 
   .wb-page-07 .tedx-bubble-wrap {
-    margin-top: calc(1rem / var(--wb-page-zoom, 1));
-    padding-top: calc(1.45rem / var(--wb-page-zoom, 1));
+    margin-top: 1rem;
+    padding-top: 1.45rem;
   }
 
   .wb-page-07 .tedx-bubble-wrap::before {
-    font-size: calc(2.2rem / var(--wb-page-zoom, 1));
-    left: calc(0.9rem / var(--wb-page-zoom, 1));
+    font-size: 2.2rem;
+    left: 0.9rem;
   }
 
   .wb-page-07 .tedx-bubble {
-    width: calc(220px / var(--wb-page-zoom, 1));
-    height: calc(220px / var(--wb-page-zoom, 1));
-    padding: calc(0.85rem / var(--wb-page-zoom, 1));
-    font-size: calc(1.05rem / var(--wb-page-zoom, 1));
+    width: 220px;
+    height: 220px;
+    padding: 0.85rem;
+    font-size: 1.05rem;
     line-height: 1.32;
   }
 

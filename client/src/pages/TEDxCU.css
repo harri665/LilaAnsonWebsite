@@ -313,20 +313,20 @@
   }
 
   .tedx-wrap .tedx-rh {
-    font-size: calc(0.64rem / var(--wb-page-zoom, 1)) !important;
-    letter-spacing: calc(0.14em / var(--wb-page-zoom, 1));
-    padding-bottom: calc(0.28rem / var(--wb-page-zoom, 1));
-    margin-bottom: calc(0.8rem / var(--wb-page-zoom, 1));
+    font-size: 0.64rem !important;
+    letter-spacing: 0.14em;
+    padding-bottom: 0.28rem;
+    margin-bottom: 0.8rem;
   }
 
   .tedx-wrap .tedx-title {
-    font-size: calc(1.8rem / var(--wb-page-zoom, 1)) !important;
-    line-height: calc(1.9rem / var(--wb-page-zoom, 1)) !important;
-    margin-bottom: calc(1rem / var(--wb-page-zoom, 1));
+    font-size: 1.8rem !important;
+    line-height: 1.9rem !important;
+    margin-bottom: 1rem;
   }
 
   .tedx-wrap .tedx-title-l2 {
-    padding-left: calc(1.05rem / var(--wb-page-zoom, 1)) !important;
+    padding-left: 1.05rem !important;
   }
 }
 
