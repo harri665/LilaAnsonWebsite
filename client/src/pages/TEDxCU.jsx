@@ -179,7 +179,7 @@ export default function TEDxCU() {
                 of text were printed on an Inkjet printer.
               </p>
               </div>
-              <div className="tedx-stacked">
+              <div className="tedx-stacked" style={{width:'88%',margin:'0 auto'}}>
                 <img src={i4(0)} alt="Life, Death & AI — mockup" />
                 <img src={i4(1)} alt="Levels of Imagination — built" />
               </div>
@@ -187,7 +187,7 @@ export default function TEDxCU() {
 
             <div className="tedx-cols tedx-cols--45-55 reveal" style={{marginTop:'.75rem'}}>
               <img src={i4(2)} alt="Planning sketches — January 2025"
-                style={{width:'100%',display:'block',border:'1px solid #ccc'}} />
+                style={{width:'84%',display:'block',margin:'0 auto',border:'1px solid #ccc'}} />
               <p className="tedx-body">
                 Although I had prepared rough sketches of what I thought the best layout
                 would be for the installations, rehearsal day was about arranging and
