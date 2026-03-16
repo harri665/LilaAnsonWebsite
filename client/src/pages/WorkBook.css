@@ -159,14 +159,74 @@
 
 /* ── MOBILE ── */
 @media (max-width: 900px) {
+  .wb-wrap {
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+
   .wb-book {
     margin: 8px auto;
     width: calc(100% - 24px);
+    max-width: 740px;
+    flex: none;
+    perspective: none;
+    box-shadow: none;
+    background: transparent;
+    display: grid;
+    gap: 14px;
   }
-  /* Full-width single-page view on mobile */
+
+  /* Flatten the 3D book into individual sequential pages */
   .wb-leaf {
+    position: relative;
+    top: auto;
+    right: auto;
     width: 100%;
+    height: auto;
+    transform: none !important;
+    transform-style: flat;
+    transition: none;
+    z-index: auto !important;
+    display: grid;
+    gap: 14px;
   }
+
+  .wb-leaf-front,
+  .wb-leaf-back {
+    position: relative;
+    inset: auto;
+    transform: none;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    background: #faf8f4;
+    border: 1px solid #d7d0c5;
+    box-shadow: 0 10px 22px -16px rgba(0,0,0,0.45);
+  }
+
+  .wb-leaf-front > .tedx-pg,
+  .wb-leaf-back > .tedx-pg,
+  .wb-leaf-front > .wb-pg-blank,
+  .wb-leaf-back > .wb-pg-blank {
+    position: relative;
+    inset: auto;
+    min-height: min(100dvh - 110px, 980px);
+  }
+
+  .wb-nav-controls,
+  .wb-flip-btn {
+    display: none;
+  }
+
+  .wb-scroll-section {
+    height: auto;
+  }
+
+  .wb-scroll-sticky {
+    position: static;
+    height: auto;
+  }
+
   .wb-book::after {
     display: none;
   }
