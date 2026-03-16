@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import './TEDxCU.css'
 import { setupFitPages } from './fitPages'
 
-const i3 = n => `/03/portfolios-03_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
-const i4 = n => `/04/portfolios-04_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
+const base = import.meta.env.BASE_URL
+const i3 = n => `${base}03/portfolios-03_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
+const i4 = n => `${base}04/portfolios-04_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
 
 const Wm = () => (
   <div className="tedx-wm" aria-hidden="true">

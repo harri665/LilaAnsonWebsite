@@ -4,7 +4,8 @@ import './TEDxCU.css'
 import './ColoradoSymphony.css'
 import { setupFitPages } from './fitPages'
 
-const i5 = n => `/05/portfolios-05_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
+const base = import.meta.env.BASE_URL
+const i5 = n => `${base}05/portfolios-05_${String(n).padStart(4,'0')}_Layer-${n+2}.png`
 
 const Wm = () => (
   <div className="tedx-wm" aria-hidden="true">

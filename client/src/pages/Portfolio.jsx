@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+const base = import.meta.env.BASE_URL
+
 export default function Portfolio() {
   useEffect(() => {
     const nav = document.getElementById('nav')
@@ -77,7 +79,7 @@ export default function Portfolio() {
         </div>
         <div className="intro-body reveal">
           <div className="intro-images">
-            <img src="/02/portfolios-02_0000_Layer-2.png" alt="Lila Anson — portrait" />
+            <img src={`${base}02/portfolios-02_0000_Layer-2.png`} alt="Lila Anson — portrait" />
           </div>
           <p className="intro-text">
             As a designer, I align my<br />
@@ -105,7 +107,7 @@ export default function Portfolio() {
           {/* TEDxCU (04) — top right */}
           <div className="wi-item wi-tedxcu reveal">
             <Link to="/work/tedxcu">
-              <img src="/03/portfolios-03_0005_Layer-7.png" alt="TEDxCU Experiential Design" />
+              <img src={`${base}03/portfolios-03_0005_Layer-7.png`} alt="TEDxCU Experiential Design" />
             </Link>
             <div className="wi-meta">
               <span className="wi-pgnum">(04)</span>
@@ -117,7 +119,7 @@ export default function Portfolio() {
           <div className="wi-item wi-colorado reveal">
             <span className="wi-hand wi-hand--above">(Colorado Symphony<br />Poster Mailer)</span>
             <Link to="/work/colorado-symphony">
-              <img src="/05/portfolios-05_0001_Layer-3.png" alt="Colorado Symphony Poster Mailer" />
+              <img src={`${base}05/portfolios-05_0001_Layer-3.png`} alt="Colorado Symphony Poster Mailer" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(08)</span>
           </div>
@@ -126,7 +128,7 @@ export default function Portfolio() {
           <div className="wi-item wi-zine reveal">
             <span className="wi-pgnum wi-pgnum--above">(10)</span>
             <Link to="/work/zine">
-              <img src="/06/portfolios-06_0000_Layer-2.png" alt="Experimental Typography Zine Covers" />
+              <img src={`${base}06/portfolios-06_0000_Layer-2.png`} alt="Experimental Typography Zine Covers" />
             </Link>
             <span className="wi-hand wi-hand--below">Zine<br />Covers...</span>
           </div>
@@ -135,7 +137,7 @@ export default function Portfolio() {
           <div className="wi-item wi-bluebird reveal">
             <span className="wi-hand wi-hand--above">BLUEBIRD<br />Sparkling Water :)</span>
             <Link to="/work/bluebird">
-              <img src="/06/portfolios-06_0003_Layer-5.png" alt="Bluebird Sparkling Water Branding" />
+              <img src={`${base}06/portfolios-06_0003_Layer-5.png`} alt="Bluebird Sparkling Water Branding" />
             </Link>
             <span className="wi-pgnum wi-pgnum--below">(11)</span>
           </div>
@@ -152,7 +154,7 @@ export default function Portfolio() {
             &amp; the<br />
             <em>Eye</em>
           </h2>
-          <img src="/global/star.png" alt="" className="about-star" />
+          <img src={`${base}global/star.png`} alt="" className="about-star" />
         </div>
         <div className="about-body">
           <p className="reveal">

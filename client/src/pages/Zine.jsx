@@ -4,12 +4,13 @@ import './TEDxCU.css'
 import './ZineBluebird.css'
 import { setupFitPages } from './fitPages'
 
+const base = import.meta.env.BASE_URL
 const zine = [
-  '/06/portfolios-06_0000_Layer-2.png',
-  '/06/portfolios-06_0001_Layer-3.png',
-  '/06/portfolios-06_0002_Layer-4.png',
-  '/06/portfolios-06_0003_Layer-5.png',
-  '/06/portfolios-06_0004_Layer-1.png',
+  `${base}06/portfolios-06_0000_Layer-2.png`,
+  `${base}06/portfolios-06_0001_Layer-3.png`,
+  `${base}06/portfolios-06_0002_Layer-4.png`,
+  `${base}06/portfolios-06_0003_Layer-5.png`,
+  `${base}06/portfolios-06_0004_Layer-1.png`,
 ]
 
 const Wm = () => (
