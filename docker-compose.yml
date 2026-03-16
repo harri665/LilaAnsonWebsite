@@ -3,14 +3,14 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: harwood-server
+    container_name: lila-server
     ports:
       - "5601:3001"
     environment:
       - NODE_ENV=production
       - PORT=3001
     networks:
-      - harwood-network
+      - lila-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health"]
@@ -23,15 +23,15 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    container_name: harwood-client
+    container_name: lila-client
     ports:
       - "5600:80"
     depends_on:
       - server
     networks:
-      - harwood-network
+      - lila-network
     restart: unless-stopped
 
 networks:
-  harwood-network:
+  lila-network:
     driver: bridge
