@@ -2,7 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/global/favi7.png" />
+    <base href="/" />
+    <script>
+      (function () {
+        var repoBase = '/LilaAnsonWebsite/'
+        var path = window.location.pathname || '/'
+        var base = path.indexOf(repoBase) === 0 ? repoBase : '/'
+        var baseEl = document.querySelector('base')
+        if (baseEl) baseEl.setAttribute('href', base)
+        window.__APP_BASE_PATH__ = base === '/' ? '/' : base.replace(/\/$/, '')
+      })()
+    </script>
+    <link rel="icon" type="image/png" href="global/favi7.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lila Anson</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">

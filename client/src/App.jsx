@@ -11,7 +11,6 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Portfolio />} />
-      <Route path="/LilaAnsonWebsite/" element={<Portfolio />} />
       <Route path="/work" element={<WorkBook />} />
       <Route path="/work/tedxcu" element={<TEDxCU />} />
       <Route path="/work/colorado-symphony" element={<ColoradoSymphony />} />
