@@ -1,0 +1,122 @@
+/* ── ZINE / BLUEBIRD · page-specific ── */
+
+/* Single-page spread (no right page) */
+.tedx-spread--single {
+  grid-template-columns: 1fr;
+  max-width: 700px;
+}
+.tedx-spread--single::after { display: none; }
+
+/* ── ZINE ── */
+
+.zine-title {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.8rem;
+}
+
+/* Two independent columns */
+.zine-cols {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.zine-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cover image frame */
+.zb-cover-frame { border: 2px solid #111; }
+.zb-cover-frame img { width: 100%; display: block; }
+
+/* Caveat annotations */
+.zb-note {
+  display: flex;
+  align-items: flex-start;
+  gap: .3rem;
+}
+.zb-caveat {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: #3355cc;
+  line-height: 1.35;
+}
+.zb-arrow {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: #3355cc;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Left-col annotation (above pixel cover) */
+.zine-note-top {
+  margin-bottom: .3rem;
+}
+.zine-arrow-left {
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: #3355cc;
+  margin-bottom: .4rem;
+  margin-left: .5rem;
+}
+
+/* Right-col annotation (below ATLAS cover) */
+.zine-note-extrude {
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+  gap: .4rem;
+}
+.zine-arrow-right {
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: #3355cc;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Closing paragraph + star */
+.zine-closing {
+  overflow: hidden;
+}
+.zine-star {
+  width: 48px;
+  height: auto;
+  float: left;
+  margin: .1rem .5rem .3rem 0;
+  display: block;
+}
+
+/* ── BLUEBIRD ── */
+
+.bb-title {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+/* Box image */
+.zb-box-img { margin-bottom: 1.5rem; }
+.zb-box-img img { width: 100%; display: block; }
+
+/* Can + text row */
+.bb-lower { margin-top: 0; }
+
+/* Bottom black strip */
+.zb-bottom-strip {
+  margin-top: 1.5rem;
+  height: 28px;
+  background: #111;
+}
