@@ -8,7 +8,7 @@ export function fitPages() {
     inner.style.zoom = ''
     const natural = inner.scrollHeight
     if (natural > available) {
-      inner.style.zoom = available / natural
+      inner.style.zoom = Math.max(0.82, available / natural)
     }
   })
 }

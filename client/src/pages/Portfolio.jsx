@@ -164,7 +164,7 @@ export default function Portfolio() {
             My background spans <strong>graphic design, experiential production, and print</strong> — from designing immersive TED event environments for 1,000+ attendees to crafting bold typographic systems for print. I'm drawn to work that communicates complexity with clarity, and that invites people in rather than holding them at arm's length.
           </p>
           <p className="reveal">
-            Based in Boulder, Colorado. Currently studying at the <strong>University of Colorado Boulder.</strong>
+            Based in Boulder, Colorado. Graduated from the <strong>University of Colorado Boulder.</strong>
           </p>
           <div className="about-disciplines reveal">
             <div className="discipline-row">
@@ -196,9 +196,7 @@ export default function Portfolio() {
           together
         </h2>
         <div className="contact-links reveal">
-          <a className="contact-link primary" href="mailto:hello@lilaanson.com">hello@lilaanson.com</a>
-          <a className="contact-link" href="#" target="_blank" rel="noreferrer">Instagram</a>
-          <a className="contact-link" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a className="contact-link primary" href="mailto:lilaeanson@gmail.com">lilaeanson@gmail.com</a>
           <a className="contact-link" href="https://lilaanson.com" target="_blank" rel="noreferrer">lilaanson.com</a>
         </div>
       </section>

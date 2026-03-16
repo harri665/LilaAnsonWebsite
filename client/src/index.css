@@ -7,9 +7,9 @@
   --ink-mid: #555;
   --ink-light: #999;
   --accent: #E8325A;
-  --serif: 'Playfair Display', Georgia, serif;
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', Helvetica, sans-serif;
+  --serif: 'Times New Roman', Times, serif;
+  --mono: 'Times New Roman', Times, serif;
+  --sans: 'Times New Roman', Times, serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -147,14 +147,14 @@ nav.scrolled {
   animation: fadeUp 0.9s var(--ease) 0.9s forwards;
 }
 .hero-tagline {
-  max-width: 320px;
-  font-family: var(--sans);
-  font-weight: 300;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--ink-mid);
+  max-width: 420px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.65;
+  color: var(--ink);
 }
-.hero-tagline strong { color: var(--ink); font-weight: 400; }
+.hero-tagline strong { color: var(--ink); font-weight: 700; }
 .hero-index {
   display: flex;
   flex-direction: column;

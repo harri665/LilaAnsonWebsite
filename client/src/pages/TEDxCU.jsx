@@ -168,7 +168,7 @@ export default function TEDxCU() {
               with the room and exactly how each installation would look from a distance.
             </p>
 
-            <div className="tedx-cols tedx-cols--4-6 reveal" style={{marginTop:'1rem', alignItems:'stretch'}}>
+            <div className="tedx-cols tedx-cols--4-6 reveal" style={{marginTop:'.75rem', alignItems:'stretch'}}>
               <div className="tedx-fill-col">
               <p className="tedx-body tedx-fill-text">
                 I then moved to the wood shop, where I built my installations to{' '}
@@ -185,7 +185,7 @@ export default function TEDxCU() {
               </div>
             </div>
 
-            <div className="tedx-cols tedx-cols--45-55 reveal" style={{marginTop:'1.25rem'}}>
+            <div className="tedx-cols tedx-cols--45-55 reveal" style={{marginTop:'.75rem'}}>
               <img src={i4(2)} alt="Planning sketches — January 2025"
                 style={{width:'100%',display:'block',border:'1px solid #ccc'}} />
               <p className="tedx-body">
