@@ -34,7 +34,7 @@ export default function ColoradoSymphony() {
   }, [])
 
   return (
-    <div className="tedx-wrap">
+    <div className="tedx-wrap cs-page">
 
       <nav className="tedx-nav">
         <Link to="/" className="tedx-nav-back">← Back</Link>
@@ -48,7 +48,7 @@ export default function ColoradoSymphony() {
       <div className="tedx-spread" id="s1">
 
         {/* PAGE 08 */}
-        <div className="tedx-pg">
+        <div className="tedx-pg cs-force-zoom-1">
           <Wm />
           <div className="tedx-pg-inner">
             <div className="tedx-rh">

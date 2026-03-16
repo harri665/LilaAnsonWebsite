@@ -7,6 +7,12 @@ export function fitPages() {
     const inner = pg.querySelector('.tedx-pg-inner')
     if (!inner) return
 
+    if (pg.classList.contains('cs-force-zoom-1')) {
+      inner.style.zoom = '1'
+      pg.style.setProperty('--wb-page-zoom', '1')
+      return
+    }
+
     // Reset before measuring so previous pass transforms do not skew available space.
     inner.style.zoom = '1'
     pg.style.setProperty('--wb-page-zoom', '1')
